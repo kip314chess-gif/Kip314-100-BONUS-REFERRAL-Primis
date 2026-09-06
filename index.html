@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Primis Bank — Recommended by kip314</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #EDE9DD;
+    --paper-dim: #E4DFCF;
+    --ink: #17233A;
+    --ink-soft: #47546B;
+    --line: #C9C2AC;
+    --green: #2F6B4F;
+    --green-deep: #1F4A36;
+    --brass: #B8863C;
+    --brass-deep: #8E661E;
+    --white: #FBFAF6;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 17px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1, h2, h3 {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-weight: 600;
+    margin: 0;
+    letter-spacing: -0.01em;
+  }
+
+  .mono { font-family: 'IBM Plex Mono', monospace; }
+  a { color: inherit; }
+
+  .wrap {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 0 28px;
+  }
+
+  header { padding: 34px 0 0; }
+
+  .wordmark {
+    font-size: 21px;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+  }
+
+  .wordmark span { color: var(--green-deep); }
+
+  .wordmark-tag {
+    font-size: 13px;
+    color: var(--ink-soft);
+    margin-top: 3px;
+    letter-spacing: 0.01em;
+  }
+
+  .hero {
+    padding: 56px 0 64px;
+    display: grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: 36px;
+    align-items: center;
+  }
+
+  .hero h1 {
+    font-size: clamp(34px, 5vw, 48px);
+    line-height: 1.12;
+  }
+
+  .hero p.sub {
+    margin-top: 18px;
+    font-size: 18px;
+    color: var(--ink-soft);
+    max-width: 46ch;
+  }
+
+  .cta-row {
+    margin-top: 30px;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    display: inline-block;
+    background: var(--ink);
+    color: var(--white);
+    text-decoration: none;
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-weight: 600;
+    font-size: 16px;
+    padding: 15px 28px;
+    border-radius: 3px;
+    transition: background 0.15s ease;
+  }
+
+  .btn:hover { background: var(--green-deep); }
+
+  .btn:focus-visible {
+    outline: 2px solid var(--green);
+    outline-offset: 3px;
+  }
+
+  .cta-note {
+    font-size: 14px;
+    color: var(--ink-soft);
+  }
+
+  .stub {
+    background: var(--white);
+    border: 1px solid var(--line);
+    padding: 26px 24px 22px;
+    transform: rotate(1.4deg);
+    box-shadow: 0 1px 0 var(--line);
+    position: relative;
+  }
+
+  .stub::before {
+    content: "";
+    position: absolute;
+    top: 10px; left: 10px; right: 10px; bottom: 10px;
+    border: 1px dashed var(--line);
+    pointer-events: none;
+  }
+
+  .stub-label {
+    font-size: 12px;
+    color: var(--ink-soft);
+    letter-spacing: 0.03em;
+  }
+
+  .stub-amount {
+    font-family: 'IBM Plex Mono', monospace;
+    font-weight: 600;
+    font-size: 54px;
+    color: var(--brass-deep);
+    line-height: 1;
+    margin: 10px 0 12px;
+  }
+
+  .stub-foot {
+    font-size: 13px;
+    color: var(--ink-soft);
+    border-top: 1px solid var(--line);
+    padding-top: 10px;
+  }
+
+  section {
+    padding: 52px 0;
+    border-top: 1px solid var(--line);
+  }
+
+  .eyebrow-heading {
+    font-size: 26px;
+    margin-bottom: 6px;
+  }
+
+  .section-intro {
+    color: var(--ink-soft);
+    max-width: 52ch;
+    margin-bottom: 32px;
+  }
+
+  .ledger-row {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: baseline;
+    padding: 22px 0;
+    border-bottom: 1px solid var(--line);
+    gap: 12px;
+  }
+
+  .ledger-row:first-of-type { border-top: 1px solid var(--line); }
+  .ledger-name { font-size: 18px; }
+
+  .ledger-detail {
+    display: block;
+    font-size: 14px;
+    color: var(--ink-soft);
+    margin-top: 3px;
+  }
+
+  .ledger-figure {
+    font-family: 'IBM Plex Mono', monospace;
+    font-weight: 600;
+    font-size: 34px;
+    color: var(--green-deep);
+    white-space: nowrap;
+  }
+
+  .compare-stubs {
+    display: flex;
+    gap: 22px;
+    flex-wrap: wrap;
+  }
+
+  .compare-stubs .stub { flex: 1 1 220px; }
+  .compare-stubs .stub-amount { font-size: 38px; }
+
+  .receipt {
+    background: var(--white);
+    border: 1px solid var(--line);
+    padding: 8px 26px;
+  }
+
+  .receipt-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 18px;
+    padding: 18px 0;
+    border-bottom: 1px dashed var(--line);
+  }
+
+  .receipt-item:last-child { border-bottom: none; }
+  .receipt-desc { font-size: 16px; }
+
+  .receipt-value {
+    font-family: 'IBM Plex Mono', monospace;
+    font-weight: 600;
+    font-size: 15px;
+    color: var(--green-deep);
+    white-space: nowrap;
+    text-align: right;
+  }
+
+  .steps { display: grid; gap: 26px; }
+
+  .step {
+    display: grid;
+    grid-template-columns: 40px 1fr;
+    gap: 18px;
+  }
+
+  .step-num {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 15px;
+    color: var(--brass-deep);
+    padding-top: 3px;
+  }
+
+  .step h3 {
+    font-size: 18px;
+    font-weight: 500;
+    margin-bottom: 4px;
+  }
+
+  .step p {
+    margin: 0;
+    color: var(--ink-soft);
+    font-size: 15px;
+  }
+
+  .closing {
+    text-align: left;
+    background: var(--ink);
+    color: var(--paper);
+    border-top: none;
+  }
+
+  .closing h2 {
+    color: var(--white);
+    font-size: 28px;
+    max-width: 20ch;
+  }
+
+  .closing .section-intro { color: #B9C2D1; }
+  .closing .cta-note { color: #B9C2D1; }
+
+  .closing .btn {
+    background: var(--brass);
+    color: var(--ink);
+  }
+
+  .closing .btn:hover {
+    background: var(--brass-deep);
+    color: var(--white);
+  }
+
+  .fine-print {
+    font-size: 13px;
+    color: var(--ink-soft);
+    line-height: 1.6;
+    max-width: 62ch;
+  }
+
+  .fine-print p + p { margin-top: 10px; }
+
+  .personal-note {
+    background: var(--white);
+    border-left: 3px solid var(--brass);
+    padding: 22px 24px;
+    font-size: 16px;
+    color: var(--ink);
+  }
+
+  .personal-note p { margin: 0 0 12px; }
+  .personal-note p:last-of-type { margin-bottom: 0; }
+
+  .personal-note .attribution {
+    display: block;
+    margin-top: 14px;
+    font-size: 14px;
+    color: var(--ink-soft);
+  }
+
+  .form-page {
+    max-width: 460px;
+    margin: 0 auto;
+    padding: 60px 0 100px;
+  }
+
+  .back-link {
+    display: inline-block;
+    margin-bottom: 26px;
+    font-size: 15px;
+    color: var(--ink-soft);
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  .back-link:hover { color: var(--ink); }
+  #form-step h2 { font-size: 28px; margin-bottom: 10px; }
+  .field-group { margin-bottom: 22px; }
+
+  .field-label {
+    display: block;
+    font-weight: 600;
+    font-size: 15px;
+    margin-bottom: 8px;
+  }
+
+  .field-label .req {
+    color: var(--brass-deep);
+    margin-left: 3px;
+  }
+
+  .field-input {
+    width: 100%;
+    padding: 13px 14px;
+    border: 1px solid var(--line);
+    border-radius: 3px;
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 16px;
+    background: var(--white);
+    color: var(--ink);
+  }
+
+  .field-input:focus {
+    outline: none;
+    border-color: var(--green);
+    box-shadow: 0 0 0 2px rgba(47, 107, 79, 0.18);
+  }
+
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(23, 35, 58, 0.55);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    z-index: 1000;
+  }
+
+  .modal-card {
+    background: var(--white);
+    max-width: 400px;
+    width: 100%;
+    padding: 34px 30px 30px;
+    border-radius: 4px;
+    position: relative;
+    box-shadow: 0 16px 44px rgba(23, 35, 58, 0.28);
+    text-align: center;
+  }
+
+  .modal-close {
+    position: absolute;
+    top: 12px;
+    right: 14px;
+    background: none;
+    border: none;
+    font-size: 22px;
+    line-height: 1;
+    color: var(--ink-soft);
+    cursor: pointer;
+    padding: 4px;
+  }
+
+  .modal-close:hover { color: var(--ink); }
+
+  .modal-stamp {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: 2px solid var(--brass-deep);
+    color: var(--brass-deep);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 18px;
+    transform: rotate(-6deg);
+  }
+
+  .modal-card h2 { font-size: 24px; margin-bottom: 10px; }
+
+  .modal-card .section-intro {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .modal-account-links {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+
+  .modal-account-links a {
+    display: block;
+    padding: 13px 16px;
+    border: 1px solid var(--line);
+    border-radius: 3px;
+    font-weight: 600;
+    font-size: 15px;
+    color: var(--ink);
+    text-decoration: none;
+    text-align: center;
+    transition: border-color 0.15s ease, background 0.15s ease;
+  }
+
+  .modal-account-links a:hover {
+    border-color: var(--ink);
+    background: var(--paper-dim);
+  }
+
+  .modal-later {
+    display: block;
+    width: 100%;
+    text-align: center;
+    margin-top: 2px;
+    font-size: 14px;
+    color: var(--ink-soft);
+    text-decoration: underline;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: 'IBM Plex Sans', sans-serif;
+  }
+
+  .modal-later:hover { color: var(--ink); }
+
+  footer {
+    padding: 30px 0 50px;
+    font-size: 13px;
+    color: var(--ink-soft);
+  }
+
+  @media (max-width: 680px) {
+    .hero { grid-template-columns: 1fr; }
+    .stub {
+      transform: rotate(0.6deg);
+      justify-self: start;
+      max-width: 280px;
+    }
+    .ledger-figure { font-size: 28px; }
+    .receipt { padding: 4px 18px; }
+    .receipt-item { flex-direction: column; gap: 4px; }
+    .receipt-value { text-align: left; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .btn { transition: none; }
+  }
+</style>
+</head>
+<body>
+
+<div id="landing-view">
+
+<header>
+  <div class="wrap">
+    <div class="wordmark">Primis<span>·</span>Bank</div>
+    <div class="wordmark-tag">Referral from kip314</div>
+  </div>
+</header>
+
+<div class="wrap">
+  <section class="hero" style="border-top: none; padding-top: 20px;">
+    <div>
+      <h1>Keep your bank. Just stop letting it pay you nothing.</h1>
+      <p class="sub">This isn't about switching banks — keep your checking, your bill pay, all of it. Open a Primis savings account on the side, and it actually pays real interest. Fund it, and you get $100.</p>
+      <div class="cta-row">
+        <a href="#" class="btn js-open-account">Open your account →</a>
+        <span class="cta-note">No cost to open. No minimum to start.</span>
+      </div>
+    </div>
+    <div class="stub">
+      <div class="stub-label">REFERRAL BONUS</div>
+      <div class="stub-amount">$100</div>
+      <div class="stub-foot">paid within 6 days of qualifying</div>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="eyebrow-heading">The rates, plainly</h2>
+    <p class="section-intro">Interest paid out every month, automatically — not a promotional rate that quietly drops off.</p>
+
+    <div class="ledger-row">
+      <div><div class="ledger-name">Savings account</div><span class="ledger-detail">Annual percentage yield, paid monthly</span></div>
+      <div class="ledger-figure">3.85%</div>
+    </div>
+    <div class="ledger-row">
+      <div><div class="ledger-name">Checking account</div><span class="ledger-detail">Annual percentage yield, paid monthly</span></div>
+      <div class="ledger-figure">3.70%</div>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="eyebrow-heading">What the big banks pay</h2>
+    <p class="section-intro">Five of the largest banks in the country, on their standard savings account — no linked accounts, no six-figure balance required.</p>
+
+    <div class="ledger-row"><div><div class="ledger-name">Chase Savings</div></div><div class="ledger-figure" style="color: var(--ink-soft); font-size: 26px;">0.01%</div></div>
+    <div class="ledger-row"><div><div class="ledger-name">Bank of America Advantage Savings</div></div><div class="ledger-figure" style="color: var(--ink-soft); font-size: 26px;">0.01%</div></div>
+    <div class="ledger-row"><div><div class="ledger-name">Wells Fargo Way2Save</div></div><div class="ledger-figure" style="color: var(--ink-soft); font-size: 26px;">0.01%</div></div>
+    <div class="ledger-row"><div><div class="ledger-name">Citibank Citi Savings</div></div><div class="ledger-figure" style="color: var(--ink-soft); font-size: 26px;">0.03%</div></div>
+    <div class="ledger-row"><div><div class="ledger-name">U.S. Bank standard savings</div></div><div class="ledger-figure" style="color: var(--ink-soft); font-size: 26px;">0.05%</div></div>
+    <div class="ledger-row" style="border-bottom: none; border-top: 2px solid var(--ink); padding-top: 26px; margin-top: 6px;"><div><div class="ledger-name" style="font-weight: 600;">Primis Savings</div></div><div class="ledger-figure">3.85%</div></div>
+  </section>
+
+  <section>
+    <h2 class="eyebrow-heading">$10,000, sitting for five years</h2>
+    <p class="section-intro">Same money, same five years. The only variable is where it sits.</p>
+    <div class="compare-stubs">
+      <div class="stub" style="transform: rotate(-1deg);"><div class="stub-label">PRIMIS SAVINGS — 3.85% APY</div><div class="stub-amount">$12,079</div><div class="stub-foot">+$2,079 in interest earned</div></div>
+      <div class="stub" style="transform: rotate(1deg);"><div class="stub-label">BANK OF AMERICA — 0.01% APY</div><div class="stub-amount" style="color: var(--ink-soft);">$10,005</div><div class="stub-foot">+$5 in interest earned</div></div>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="eyebrow-heading">What's included</h2>
+    <p class="section-intro">No monthly fee traps — this is the account as it comes, nothing upgraded.</p>
+
+    <div class="receipt">
+      <div class="receipt-item"><div class="receipt-desc">Cash back on every debit card purchase</div><div class="receipt-value">1%</div></div>
+      <div class="receipt-item"><div class="receipt-desc">Overdraft fees</div><div class="receipt-value">$0, always</div></div>
+      <div class="receipt-item"><div class="receipt-desc">Direct deposit hits your account</div><div class="receipt-value">up to 2 days early</div></div>
+      <div class="receipt-item"><div class="receipt-desc">Person-to-person transfers</div><div class="receipt-value">instant</div></div>
+      <div class="receipt-item"><div class="receipt-desc">Customer support, chat or phone</div><div class="receipt-value">24/7</div></div>
+      <div class="receipt-item"><div class="receipt-desc">ATM fees, any bank, nationwide</div><div class="receipt-value">reimbursed</div></div>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="eyebrow-heading">How the $100 works</h2>
+    <div class="steps">
+      <div class="step"><div class="step-num mono">01</div><div><h3>Open an account</h3><p>Choose Primis Perks, Primis Premium, or Primis Savings — any of the three qualifies.</p></div></div>
+      <div class="step"><div class="step-num mono">02</div><div><h3>Fund it within 60 days</h3><p>Get your balance to at least $2,500 within 60 days of opening the account.</p></div></div>
+      <div class="step"><div class="step-num mono">03</div><div><h3>Get paid</h3><p>$100 lands in your new account in 6 days or less. No catch, no follow-up steps.</p></div></div>
+    </div>
+  </section>
+</div>
+
+<section class="closing">
+  <div class="wrap" style="padding: 8px 0;">
+    <h2>Ready when you are.</h2>
+    <p class="section-intro">Your main bank doesn't need to know. Ten minutes to open, sixty days to fund, and $100 shows up.</p>
+    <a href="#" class="btn js-open-account">Open your account →</a>
+    <p class="cta-note" style="margin-top: 14px;">On the next tab, I just need a little bit of your info so I can refer you on my end — that's how we both get $100.</p>
+  </div>
+</section>
+
+<div class="wrap">
+  <div class="personal-note">
+    <p>My full-time job is in finance, and this is the bank I actually use every day — not just one I'm pointing people toward.</p>
+    <p>My recommendation: start with the savings account. Once some time passes and you're comfortable with how the bank handles things, then open a checking account and start moving over from your traditional bank. That's exactly what I did — I use this bank myself, and I didn't even get a bonus when I signed up.</p>
+    <p>Worth pointing out: the checking account alone pays 3.70% APY — that's probably higher than whatever your regular savings account is earning right now.</p>
+    <span class="attribution">— kip314</span>
+  </div>
+</div>
+
+<div class="wrap">
+  <footer>
+    <div class="fine-print">
+      <p>Offer valid for new Primis Bank customers who open an account through this referral link. To receive the $100 bonus, open a Primis Perks, Primis Premium, or Primis Savings account within 60 days of using this referral, and bring the account balance to at least $2,500 within 60 days of opening it.</p>
+      <p>Rates, fees, and terms shown here are current as of August 30, 2026 and are subject to change. This page is an independent referral page and is not an official Primis Bank site.</p>
+      <p>Comparison rates for Chase, Bank of America, Wells Fargo, Citibank, and U.S. Bank reflect each bank's publicly advertised standard savings APY as of August 30, 2026. The $10,000/5-year growth figures assume the stated APY compounds annually and holds steady for the full period — actual variable rates will differ.</p>
+    </div>
+  </footer>
+</div>
+
+</div>
+
+<div id="form-view" style="display:none;">
+  <header>
+    <div class="wrap">
+      <div class="wordmark">Primis<span>·</span>Bank</div>
+      <div class="wordmark-tag">Referral from kip314</div>
+    </div>
+  </header>
+
+  <div class="wrap">
+    <div class="form-page">
+      <div id="form-step">
+        <a href="#" class="back-link js-back" aria-label="Go back to the previous page">‹ Back</a>
+        <h2>A few details</h2>
+        <p class="section-intro" style="margin-bottom: 30px;">So the referral works for both of us, because we both want the $100, I just need a few details from you. Fill this out and click submit, and then you'll be redirected to the Primis website where you can open your account.</p>
+
+        <form id="referral-form" novalidate>
+          <div class="field-group">
+            <label class="field-label" for="ref-first">First Name<span class="req">*</span></label>
+            <input class="field-input" type="text" id="ref-first" name="ref-first" autocomplete="given-name" required>
+          </div>
+          <div class="field-group">
+            <label class="field-label" for="ref-last">Last Name<span class="req">*</span></label>
+            <input class="field-input" type="text" id="ref-last" name="ref-last" autocomplete="family-name" required>
+          </div>
+          <div class="field-group">
+            <label class="field-label" for="ref-email">Email address you will use to open the account<span class="req">*</span></label>
+            <input class="field-input" type="email" id="ref-email" name="ref-email" autocomplete="email" required>
+          </div>
+          <div class="field-group">
+            <label class="field-label" for="ref-phone">Phone Number<span class="req">*</span></label>
+            <input class="field-input" type="tel" id="ref-phone" name="ref-phone" autocomplete="tel" inputmode="tel" required>
+          </div>
+          <p id="form-error" style="color: var(--brass-deep); font-size: 14px; display: none; margin-bottom: 18px;">Please enter your first name, last name, a valid email address, and phone number.</p>
+          <button type="submit" class="btn" style="width: 100%; text-align: center; border: none; cursor: pointer; font-size: 16px;">Submit</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="submit-modal" class="modal-overlay" style="display:none;">
+  <div class="modal-card">
+    <button type="button" class="modal-close js-modal-close" aria-label="Close">×</button>
+    <div class="modal-stamp">
+      <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M6 14.5L11.5 20L22 8" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+    <h2 id="modal-heading">Almost there.</h2>
+    <p class="section-intro" id="modal-body" style="margin-bottom: 22px;">Got it — I've saved your info. That's not the referral itself yet, though: one more step to actually submit it to Primis so the bonus counts for both of us.</p>
+    <p class="section-intro" style="margin-bottom: 22px;">Click below and I'll walk you through the real Primis referral form — it only takes a minute. After you submit that one, Primis will email <em>you</em> a personal link to finish opening the account. You'll see three eligible options there: two Checking Account types and one Savings Account. <strong>The $100 reward applies to all three.</strong></p>
+    <a href="primis-referral-kit.html" class="btn" style="width: 100%; text-align: center; display: block;">See how to finish it →</a>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+(function () {
+  var landingView = document.getElementById('landing-view');
+  var formView = document.getElementById('form-view');
+  var formStep = document.getElementById('form-step');
+  var form = document.getElementById('referral-form');
+  var errorMsg = document.getElementById('form-error');
+  var modal = document.getElementById('submit-modal');
+  var modalHeading = document.getElementById('modal-heading');
+
+  function showForm(e) {
+    if (e) e.preventDefault();
+    landingView.style.display = 'none';
+    formView.style.display = 'block';
+    formStep.style.display = 'block';
+    window.scrollTo(0, 0);
+  }
+
+  function showLanding(e) {
+    if (e) e.preventDefault();
+    modal.style.display = 'none';
+    formView.style.display = 'none';
+    landingView.style.display = 'block';
+    window.scrollTo(0, 0);
+  }
+
+  function closeModal(e) {
+    if (e) e.preventDefault();
+    modal.style.display = 'none';
+    showLanding();
+  }
+
+  document.querySelectorAll('.js-open-account').forEach(function (btn) {
+    btn.addEventListener('click', showForm);
+  });
+
+  document.querySelectorAll('.js-back').forEach(function (btn) {
+    btn.addEventListener('click', showLanding);
+  });
+
+  document.querySelectorAll('.js-modal-close').forEach(function (btn) {
+    btn.addEventListener('click', closeModal);
+  });
+
+  modal.addEventListener('click', function (e) {
+    if (e.target === modal) closeModal();
+  });
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && modal.style.display !== 'none') closeModal();
+  });
+
+  // Supabase connection. These are safe to expose in browser code because this is
+  // the project's publishable key. Row Level Security controls what the browser can do.
+  var SUPABASE_URL = 'https://rvzbzdwxbyhrajtjqxft.supabase.co';
+  var SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_Qg59jipfrI4jnuFMc-Dirw_OhPh46x8';
+  var supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
+  var submitButton = form.querySelector('button[type="submit"]');
+
+  form.addEventListener('submit', async function (e) {
+    e.preventDefault();
+
+    var first = document.getElementById('ref-first').value.trim();
+    var last = document.getElementById('ref-last').value.trim();
+    var email = document.getElementById('ref-email').value.trim();
+    var phone = document.getElementById('ref-phone').value.trim();
+
+    // Client-side email safeguard. This checks the basic structure and
+    // rejects common fake/placeholder addresses. A truly "real" email
+    // can only be confirmed by sending a verification message.
+    var emailOk = /^[^\s@]+@[^\s@]+\.[A-Za-z]{2,}$/.test(email);
+    var blockedEmail = /^(test|example|fake|asdf|abc|none|noemail|no-reply|noreply)@/i.test(email) ||
+                       /@(example\.com|test\.com|invalid\.com|mailinator\.com)$/i.test(email);
+    var suspiciousEmail = email.length > 254 || email.indexOf('..') !== -1 || /[<>\"']/.test(email);
+
+    if (!first || !last || !emailOk || blockedEmail || suspiciousEmail || !phone) {
+      errorMsg.textContent = 'Please enter a real, valid email address along with your first name, last name, and phone number.';
+      errorMsg.style.display = 'block';
+      document.getElementById('ref-email').focus();
+      return;
+    }
+
+    errorMsg.style.display = 'none';
+    submitButton.disabled = true;
+    submitButton.textContent = 'Submitting…';
+
+    try {
+      var result = await supabase
+        .from('Submissions')
+        .insert([{
+          first_name: first,
+          last_name: last,
+          email: email,
+          phone: phone
+        }]);
+
+      if (result.error) {
+        throw result.error;
+      }
+
+      modalHeading.textContent = 'Thanks, ' + first + '.';
+      modal.style.display = 'flex';
+      form.reset();
+    } catch (error) {
+      console.error('Referral submission failed:', error);
+      errorMsg.textContent = 'Something went wrong while submitting your information. Please try again.';
+      errorMsg.style.display = 'block';
+    } finally {
+      submitButton.disabled = false;
+      submitButton.textContent = 'Submit';
+    }
+  });
+})();
+</script>
+
+</body>
+</html>
