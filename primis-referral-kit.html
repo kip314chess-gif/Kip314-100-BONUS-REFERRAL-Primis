@@ -432,6 +432,49 @@
     .check-fields { grid-template-columns: 1fr; }
   }
 
+  /* ---- larger, easier-to-read practice form on phones ---- */
+  @media (max-width: 640px) {
+    .check-card {
+      padding: 18px 16px;
+    }
+
+    .check-field label {
+      font-size: 1rem;
+      margin-bottom: 8px;
+    }
+
+    .check-field input {
+      font-size: 1.05rem;
+      padding: 14px 14px;
+    }
+
+    .info-box {
+      font-size: 0.98rem;
+      padding: 14px 16px;
+    }
+
+    .warn-box {
+      font-size: 1rem;
+      padding: 16px;
+    }
+
+    .check-feedback {
+      font-size: 1rem;
+    }
+
+    .check-actions {
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    #chk-btn.cta {
+      width: 100%;
+      justify-content: center;
+      font-size: 1.08rem;
+      padding: 16px 22px;
+    }
+  }
+
   @media (prefers-reduced-motion: reduce) {
     .cta, .cta-arrow { transition: none; }
   }
