@@ -504,7 +504,7 @@
       <h1>Keep your bank. Just stop letting it pay you nothing.</h1>
       <p class="sub">This isn't about switching banks — keep your checking, your bill pay, all of it. Open a Primis savings account on the side, and it actually pays real interest. Fund it, and you get $100.</p>
       <div class="cta-row">
-        <a href="#" class="btn js-open-account">Open your account →</a>
+        <a href="primis-referral-kit.html" class="btn">Open your account →</a>
         <span class="cta-note">No cost to open. No minimum to start.</span>
       </div>
     </div>
@@ -578,8 +578,8 @@
   <div class="wrap" style="padding: 8px 0;">
     <h2>Ready when you are.</h2>
     <p class="section-intro">Your main bank doesn't need to know. Ten minutes to open, sixty days to fund, and $100 shows up.</p>
-    <a href="#" class="btn js-open-account">Open your account →</a>
-    <p class="cta-note" style="margin-top: 14px;">On the next tab, I just need a little bit of your info so I can refer you on my end — that's how we both get $100.</p>
+    <a href="primis-referral-kit.html" class="btn">Open your account →</a>
+    <p class="cta-note" style="margin-top: 14px;">Next up: a quick walkthrough showing you exactly how to fill out Primis's real referral form.</p>
   </div>
 </section>
 
@@ -603,178 +603,6 @@
 </div>
 
 </div>
-
-<div id="form-view" style="display:none;">
-  <header>
-    <div class="wrap">
-      <div class="wordmark">Primis<span>·</span>Bank</div>
-      <div class="wordmark-tag">Referral from kip314</div>
-    </div>
-  </header>
-
-  <div class="wrap">
-    <div class="form-page">
-      <div id="form-step">
-        <a href="#" class="back-link js-back" aria-label="Go back to the previous page">‹ Back</a>
-        <h2>A few details</h2>
-        <p class="section-intro" style="margin-bottom: 30px;">So the referral works for both of us, because we both want the $100, I just need a few details from you. Fill this out and click submit, and then you'll be redirected to the Primis website where you can open your account.</p>
-
-        <form id="referral-form" novalidate>
-          <div class="field-group">
-            <label class="field-label" for="ref-first">First Name<span class="req">*</span></label>
-            <input class="field-input" type="text" id="ref-first" name="ref-first" autocomplete="given-name" required>
-          </div>
-          <div class="field-group">
-            <label class="field-label" for="ref-last">Last Name<span class="req">*</span></label>
-            <input class="field-input" type="text" id="ref-last" name="ref-last" autocomplete="family-name" required>
-          </div>
-          <div class="field-group">
-            <label class="field-label" for="ref-email">Email address you will use to open the account<span class="req">*</span></label>
-            <input class="field-input" type="email" id="ref-email" name="ref-email" autocomplete="email" required>
-          </div>
-          <div class="field-group">
-            <label class="field-label" for="ref-phone">Phone Number<span class="req">*</span></label>
-            <input class="field-input" type="tel" id="ref-phone" name="ref-phone" autocomplete="tel" inputmode="tel" required>
-          </div>
-          <p id="form-error" style="color: var(--brass-deep); font-size: 14px; display: none; margin-bottom: 18px;">Please enter your first name, last name, a valid email address, and phone number.</p>
-          <button type="submit" class="btn" style="width: 100%; text-align: center; border: none; cursor: pointer; font-size: 16px;">Submit</button>
-        </form>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div id="submit-modal" class="modal-overlay" style="display:none;">
-  <div class="modal-card">
-    <button type="button" class="modal-close js-modal-close" aria-label="Close">×</button>
-    <div class="modal-stamp">
-      <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M6 14.5L11.5 20L22 8" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-    </div>
-    <h2 id="modal-heading">Almost there.</h2>
-    <p class="section-intro" id="modal-body" style="margin-bottom: 22px;">Got it — I've saved your info. That's not the referral itself yet, though: one more step to actually submit it to Primis so the bonus counts for both of us.</p>
-    <p class="section-intro" style="margin-bottom: 22px;">Click below and I'll walk you through the real Primis referral form — it only takes a minute. After you submit that one, Primis will email <em>you</em> a personal link to finish opening the account. You'll see three eligible options there: two Checking Account types and one Savings Account. <strong>The $100 reward applies to all three.</strong></p>
-    <a href="primis-referral-kit.html" class="btn" style="width: 100%; text-align: center; display: block;">See how to finish it →</a>
-  </div>
-</div>
-
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-<script>
-(function () {
-  var landingView = document.getElementById('landing-view');
-  var formView = document.getElementById('form-view');
-  var formStep = document.getElementById('form-step');
-  var form = document.getElementById('referral-form');
-  var errorMsg = document.getElementById('form-error');
-  var modal = document.getElementById('submit-modal');
-  var modalHeading = document.getElementById('modal-heading');
-
-  function showForm(e) {
-    if (e) e.preventDefault();
-    landingView.style.display = 'none';
-    formView.style.display = 'block';
-    formStep.style.display = 'block';
-    window.scrollTo(0, 0);
-  }
-
-  function showLanding(e) {
-    if (e) e.preventDefault();
-    modal.style.display = 'none';
-    formView.style.display = 'none';
-    landingView.style.display = 'block';
-    window.scrollTo(0, 0);
-  }
-
-  function closeModal(e) {
-    if (e) e.preventDefault();
-    modal.style.display = 'none';
-    showLanding();
-  }
-
-  document.querySelectorAll('.js-open-account').forEach(function (btn) {
-    btn.addEventListener('click', showForm);
-  });
-
-  document.querySelectorAll('.js-back').forEach(function (btn) {
-    btn.addEventListener('click', showLanding);
-  });
-
-  document.querySelectorAll('.js-modal-close').forEach(function (btn) {
-    btn.addEventListener('click', closeModal);
-  });
-
-  modal.addEventListener('click', function (e) {
-    if (e.target === modal) closeModal();
-  });
-
-  document.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape' && modal.style.display !== 'none') closeModal();
-  });
-
-  // Supabase connection. These are safe to expose in browser code because this is
-  // the project's publishable key. Row Level Security controls what the browser can do.
-  var SUPABASE_URL = 'https://rvzbzdwxbyhrajtjqxft.supabase.co';
-  var SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_Qg59jipfrI4jnuFMc-Dirw_OhPh46x8';
-  var supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
-  var submitButton = form.querySelector('button[type="submit"]');
-
-  form.addEventListener('submit', async function (e) {
-    e.preventDefault();
-
-    var first = document.getElementById('ref-first').value.trim();
-    var last = document.getElementById('ref-last').value.trim();
-    var email = document.getElementById('ref-email').value.trim();
-    var phone = document.getElementById('ref-phone').value.trim();
-
-    // Client-side email safeguard. This checks the basic structure and
-    // rejects common fake/placeholder addresses. A truly "real" email
-    // can only be confirmed by sending a verification message.
-    var emailOk = /^[^\s@]+@[^\s@]+\.[A-Za-z]{2,}$/.test(email);
-    var blockedEmail = /^(test|example|fake|asdf|abc|none|noemail|no-reply|noreply)@/i.test(email) ||
-                       /@(example\.com|test\.com|invalid\.com|mailinator\.com)$/i.test(email);
-    var suspiciousEmail = email.length > 254 || email.indexOf('..') !== -1 || /[<>\"']/.test(email);
-
-    if (!first || !last || !emailOk || blockedEmail || suspiciousEmail || !phone) {
-      errorMsg.textContent = 'Please enter a real, valid email address along with your first name, last name, and phone number.';
-      errorMsg.style.display = 'block';
-      document.getElementById('ref-email').focus();
-      return;
-    }
-
-    errorMsg.style.display = 'none';
-    submitButton.disabled = true;
-    submitButton.textContent = 'Submitting…';
-
-    try {
-      var result = await supabase
-        .from('Submissions')
-        .insert([{
-          first_name: first,
-          last_name: last,
-          email: email,
-          phone: phone
-        }]);
-
-      if (result.error) {
-        throw result.error;
-      }
-
-      modalHeading.textContent = 'Thanks, ' + first + '.';
-      modal.style.display = 'flex';
-      form.reset();
-    } catch (error) {
-      console.error('Referral submission failed:', error);
-      errorMsg.textContent = 'Something went wrong while submitting your information. Please try again.';
-      errorMsg.style.display = 'block';
-    } finally {
-      submitButton.disabled = false;
-      submitButton.textContent = 'Submit';
-    }
-  });
-})();
-</script>
 
 </body>
 </html>
