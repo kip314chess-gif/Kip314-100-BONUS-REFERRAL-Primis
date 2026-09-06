@@ -629,7 +629,6 @@
     var btn = document.getElementById('chk-btn');
     var feedback = document.getElementById('chk-feedback');
     var PRIMIS_URL = 'https://mcpwvgk1-8q75yy74qy82pdmmwfy.pub.sfmc-content.com/kqlomfhpwdf';
-    var PRIMIS_ACCOUNT_URL = 'https://primisbank.com/';
 
     function normalize(s) {
       return (s || '').trim().toLowerCase();
@@ -683,12 +682,15 @@
         return;
       }
 
-      feedback.textContent = "Looks right — opening two tabs: primisbank.com behind this one (in case you need it later), and the real Primis referral form in front. Fill that in, submit it, then click the Primis logo at the top of that page to actually open the account — don't stop at the \"thanks\" screen.";
+      feedback.textContent = "Looks right — opening the real Primis referral form in a new tab. Fill it in, submit it, then click the Primis logo at the top of that page to actually open the account — don't stop at the \"thanks\" screen.";
       feedback.className = 'check-feedback state-success';
-      // Open in this order so the referral form — the thing they actually need
-      // to act on right now — ends up as the frontmost/focused tab. primisbank.com
-      // opens behind it as a "come back here after" tab, not a second thing to choose.
-      window.open(PRIMIS_ACCOUNT_URL, '_blank', 'noopener');
+      // Only open ONE tab here. Browsers only reliably honor a single
+      // window.open() per click — a second call in the same handler gets
+      // silently dropped as a popup in some browsers, which meant people
+      // sometimes never saw the real referral form at all. The "click the
+      // Primis logo after submitting" instructions above already cover how
+      // to reach account opening afterward, so a second auto-opened tab
+      // for primisbank.com isn't needed.
       window.open(PRIMIS_URL, '_blank', 'noopener');
     });
 
